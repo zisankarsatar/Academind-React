@@ -1,5 +1,7 @@
 import './App.css';
+import React from 'react';
 import ExpenseItem from './components/ExpenseItem';
+import NewExpense from './components/NewExpense/NewExpense.js';
 
 function App() {
   const expenses =[
@@ -34,9 +36,16 @@ function App() {
       date: new Date(2021, 3, 10)  
     },
   ]
+
+  const addExpenseHandler = (enteredExpense) =>{
+    //expenses.push(...expenses, enteredExpense);
+    console.log(enteredExpense);
+  }
+
   return (
     <div>
       <h2>Let's get started!</h2>
+      <NewExpense onAddExpense={addExpenseHandler}/>
       {expenses.map((expense, index)=>(
         <ExpenseItem key={index} expense={expense}></ExpenseItem>
       ))}
