@@ -77,6 +77,7 @@ export default function ExpenseForm(props) {
         </div>
         <div className="new-expense__action">
           <button type="submit">Submit Form</button>
+          <button onClick={()=>props.onCloseFrom()}>Cancel</button>
         </div>
       </div>
     </form>
