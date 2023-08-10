@@ -38,7 +38,7 @@ const expensesArray =[
 ]
 
 function App() {
-  const [expenses, setExpenses] = useState([]);
+  const [expenses, setExpenses] = useState(expensesArray);
   const [filteredYear, setFilteredYear] = useState('');
 
   useEffect(() => {
@@ -47,14 +47,13 @@ function App() {
   },[filteredYear]);
 
   const addExpenseHandler = enteredExpense =>{
-    let tempArr = expenses;
-    tempArr.push(enteredExpense);
-    setExpenses(tempArr);
+    setExpenses((prevExpense) => {
+      return [enteredExpense, ...prevExpense]
+    });
     setFilteredYear(filteredYear);
   }
 
   const filterChangeHandler = selectedYear => {
-    console.log(selectedYear);
     selectedYear === '' ? setFilteredYear('') : setFilteredYear(selectedYear)    
   };
 
