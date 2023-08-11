@@ -1,85 +1,97 @@
-import React, { useState } from "react";
-import "./ExpenseForm.css";
+import React, { useState } from 'react';
 
-export default function ExpenseForm(props) {
-  const [userInput, setUserInput] = useState({
-    title: "",
-    amount: "",
-    date: "",
-  });
+import './ExpenseForm.css';
 
-  const handleInputChange = (identifier, value) => {
-    if (identifier === "title") {
-      setUserInput({
-        ...userInput,
-        title: value,
-      });
-    } else if (identifier === "amount") {
-      setUserInput({
-        ...userInput,
-        amount: value,
-      });
-    } else {
-      setUserInput({
-        ...userInput,
-        date: value,
-      });
-    }
+const ExpenseForm = (props) => {
+  const [enteredTitle, setEnteredTitle] = useState('');
+  const [enteredAmount, setEnteredAmount] = useState('');
+  const [enteredDate, setEnteredDate] = useState('');
+  // const [userInput, setUserInput] = useState({
+  //   enteredTitle: '',
+  //   enteredAmount: '',
+  //   enteredDate: '',
+  // });
+
+  const titleChangeHandler = (event) => {
+    setEnteredTitle(event.target.value);
+    // setUserInput({
+    //   ...userInput,
+    //   enteredTitle: event.target.value,
+    // });
+    // setUserInput((prevState) => {
+    //   return { ...prevState, enteredTitle: event.target.value };
+    // });
   };
 
-  const submitForm = (event) => {
+  const amountChangeHandler = (event) => {
+    setEnteredAmount(event.target.value);
+    // setUserInput({
+    //   ...userInput,
+    //   enteredAmount: event.target.value,
+    // });
+  };
+
+  const dateChangeHandler = (event) => {
+    setEnteredDate(event.target.value);
+    // setUserInput({
+    //   ...userInput,
+    //   enteredDate: event.target.value,
+    // });
+  };
+
+  const submitHandler = (event) => {
     event.preventDefault();
+
     const expenseData = {
-      ...userInput,
-      date: new Date(userInput.date),
+      title: enteredTitle,
+      amount: enteredAmount,
+      date: new Date(enteredDate),
     };
 
     props.onSaveExpenseData(expenseData);
-    setUserInput({
-      title: "",
-      amount: "",
-      date: "",
-    });
+    setEnteredTitle('');
+    setEnteredAmount('');
+    setEnteredDate('');
   };
 
   return (
-    <form onSubmit={submitForm}>
-      <div className="new-expense__controls">
-        <div className="new-expense__control">
+    <form onSubmit={submitHandler}>
+      <div className='new-expense__controls'>
+        <div className='new-expense__control'>
           <label>Title</label>
           <input
-            type="text"
-            value={userInput.title}
-            onChange={(event) => handleInputChange("title", event.target.value)}
+            type='text'
+            value={enteredTitle}
+            onChange={titleChangeHandler}
           />
         </div>
-        <div className="new-expense__control">
+        <div className='new-expense__control'>
           <label>Amount</label>
           <input
-            type="number"
-            min="0.01"
-            step="0.01"
-            value={userInput.amount}
-            onChange={(event) =>
-              handleInputChange("amount", event.target.value)
-            }
+            type='number'
+            min='0.01'
+            step='0.01'
+            value={enteredAmount}
+            onChange={amountChangeHandler}
           />
         </div>
-        <div className="new-expense__control">
+        <div className='new-expense__control'>
           <label>Date</label>
           <input
-            type="date"
-            min="2019-01-01"
-            max="2022-12-31"
-            value={userInput.date}
-            onChange={(event) => handleInputChange("date", event.target.value)}
+            type='date'
+            min='2019-01-01'
+            max='2022-12-31'
+            value={enteredDate}
+            onChange={dateChangeHandler}
           />
         </div>
-        <div className="new-expense__action">
-          <button type="submit">Submit Form</button>
-          <button onClick={()=>props.onCloseFrom()}>Cancel</button>
-        </div>
+      </div>
+      <div className='new-expense__actions'>
+        <button type="button" onClick={props.onCancel}>Cancel</button>
+        <button type='submit'>Add Expense</button>
       </div>
     </form>
   );
-}
+};
+
+export default ExpenseForm;

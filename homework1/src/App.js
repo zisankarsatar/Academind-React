@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react';
 import ExpenseItem from './components/ExpenseItem';
 import ExpensesFilter from './components/ExpensesFilter';
 import NewExpense from './components/NewExpense/NewExpense';
+import ExpensesChart from './components/ExpenseChart';
 
 const expensesArray =[
   {
@@ -63,6 +64,7 @@ function App() {
       <NewExpense onAddExpense={addExpenseHandler}/>
       <div className='expenses'>
       <ExpensesFilter selected={filteredYear} onChangeFilter={filterChangeHandler} />
+      <ExpensesChart expenses={expenses} />
         {expenses.map((expense, index)=>(
           <ExpenseItem key={index} expense={expense}></ExpenseItem>
         ))}

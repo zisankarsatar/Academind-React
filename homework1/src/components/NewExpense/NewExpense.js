@@ -11,6 +11,7 @@ export default function NewExpense(props){
             ...enteredExpenseData,
         }
         props.onAddExpense(expenseData);
+        setShowFrom(false);
     }
 
     return(
